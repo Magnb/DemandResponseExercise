@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>dotnet-RealTimeDataGenerator-C31B8582-15D5-48CC-97C2-A8B963797CF5</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Confluent.Kafka" Version="2.3.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
+        <PackageReference Include="Serilog" Version="4.0.0" />
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
+        <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.1" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="DemandResponseWorker\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="DemandResponseWorker\appsettings.json" />
+      <_ContentIncludedByDefault Remove="DemandResponseWorker\obj\DemandResponseWorker.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="DemandResponseWorker\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="DemandResponseWorker\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="DemandResponseWorker\Properties\launchSettings.json" />
+    </ItemGroup>
+</Project>
