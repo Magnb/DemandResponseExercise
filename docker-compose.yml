@@ -7,12 +7,11 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - 22181:2181
-  
+
   kafka:
     image: confluentinc/cp-kafka:7.4.4
     depends_on:
       - zookeeper
-
     ports:
       - 29092:29092
     environment:
@@ -22,7 +21,7 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-  
+
   mongodb:
     image: mongo
     container_name: device-configurations
@@ -36,13 +35,37 @@ services:
       - ./db:/data/db
 
   schedulemanagementapi:
-    image: schedulemanagementapi
     build:
       context: .
       dockerfile: ScheduleManagementApi/Dockerfile
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      MONGO_CONNECTION_STRING: mongodb://eni:softwaresystems1@device-configurations:27017
+    depends_on:
+      - kafka
+      - mongodb
+    ports:
+      - "5100:80"
 
   monitoringapp:
-    image: monitoringapp
     build:
       context: .
       dockerfile: MonitoringApp/Dockerfile
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SIGNALR_HUB_URL: http://localhost:5101/realtimehub
+    depends_on:
+      - kafka
+    ports:
+      - "5101:80"
+
+  realtimedataconsumer:
+    build:
+      context: .
+      dockerfile: RealTimeDataConsumer/Dockerfile
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SIGNALR_HUB_URL: http://localhost:5101/realtimehub
+    depends_on:
+      - kafka
+      - monitoringapp
