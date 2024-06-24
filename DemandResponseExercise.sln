@@ -4,6 +4,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTimeDataGenerator", "Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridOperationCodeSender", "GridOperationCodeSender\GridOperationCodeSender.csproj", "{76BB9BCF-1703-4F9F-9FD3-87E6AE9248B6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B1DD438E-6493-40AA-920E-F87B809A348B}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleManagementApi", "ScheduleManagementApi\ScheduleManagementApi.csproj", "{2E69B609-DCDC-4D54-BD55-FA13E0E73335}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringApp", "MonitoringApp\MonitoringApp.csproj", "{3AFA0A2C-D6E6-44E6-9D65-4D3F3C515E08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +27,13 @@ Global
 		{76BB9BCF-1703-4F9F-9FD3-87E6AE9248B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76BB9BCF-1703-4F9F-9FD3-87E6AE9248B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76BB9BCF-1703-4F9F-9FD3-87E6AE9248B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E69B609-DCDC-4D54-BD55-FA13E0E73335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E69B609-DCDC-4D54-BD55-FA13E0E73335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E69B609-DCDC-4D54-BD55-FA13E0E73335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E69B609-DCDC-4D54-BD55-FA13E0E73335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AFA0A2C-D6E6-44E6-9D65-4D3F3C515E08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AFA0A2C-D6E6-44E6-9D65-4D3F3C515E08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AFA0A2C-D6E6-44E6-9D65-4D3F3C515E08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AFA0A2C-D6E6-44E6-9D65-4D3F3C515E08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
