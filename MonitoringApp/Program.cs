@@ -1,10 +1,28 @@
+using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.SignalR.Client;
 using MonitoringApp.Components;
+using MonitoringApp.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddSignalR()
+    .AddHubOptions<RealTimeHub>(options =>
+{
+    options.EnableDetailedErrors = true; // Enable detailed errors for debugging
+});
+
+builder.Services.AddScoped<HubConnection>((serviceProvider) =>
+{
+    var hubConnection = new HubConnectionBuilder()
+        .WithUrl("http://localhost:5256/realtimehub")
+        .WithAutomaticReconnect()
+        .Build();
+
+    return hubConnection;
+});
 
 var app = builder.Build();
 
@@ -17,11 +35,15 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
 app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
+// Map the SignalR hub
+app.MapHub<RealTimeHub>("/realtimehub");
+
 app.Run();
+
+app.UseRouting();

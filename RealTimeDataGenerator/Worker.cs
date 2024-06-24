@@ -10,11 +10,11 @@ public class Worker(ILogger<Worker> _logger, WorkerConfig configuration) : Backg
         while (!stoppingToken.IsCancellationRequested)
         {
             _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            string msg = "Hello, Kafka!";
+            int value = Random.Shared.Next(200, 555);
             var producer = new ProducerBuilder<Null, string>(configuration.Kafka.ProducerConfig).Build();
-            var delivery = producer.ProduceAsync(configuration.Kafka.Topic, new Message<Null, string> { Value = msg }, stoppingToken)
+            var delivery = producer.ProduceAsync(configuration.Kafka.Topic, new Message<Null, string> { Value = value.ToString() }, stoppingToken)
                 .Result;
-            _logger.LogInformation("Produced message {Msg} to Topic {Topic} {deliveryRep}", msg, configuration.Kafka.Topic, delivery.Message);
+            _logger.LogInformation("Sent value {Msg} to Topic {Topic} {deliveryRep}", value, configuration.Kafka.Topic, delivery.Message.Value);
             await Task.Delay(configuration.DataIntervalInMs, stoppingToken);
         }
     }
