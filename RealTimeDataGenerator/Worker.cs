@@ -26,14 +26,14 @@ public class Worker(ILogger<Worker> logger, WorkerConfig configuration, IHttpCli
     private decimal SimulateCurrentValueAsync(ConsumerConfiguration device)
     {
         var curTime = DateTime.UtcNow;
-        var curInterval = device.Schedule.Find(entry => entry.StartTime < curTime && entry.EndTime <= curTime);
+        var curInterval = device.Schedule.Find(entry => curTime >= entry.StartTime && entry.EndTime >= curTime);
         if (curInterval != null)
         {
-            logger.LogInformation("Schedule interval {Min} - {Max}", curInterval.MinValue, curInterval.MaxValue);
+            logger.LogInformation("Generating Value from schedule interval {Min} - {Max}", curInterval.MinValue, curInterval.MaxValue);
             return Convert.ToDecimal(Random.Shared.NextDouble()) * (curInterval.MaxValue - curInterval.MinValue) +
                    curInterval.MinValue;
         }
-        logger.LogInformation("ok default it is");
+        logger.LogInformation("Generating from default schedule");
         return Convert.ToDecimal(Random.Shared.NextDouble()) * (device.DefaultMaxValue - device.DefaultMinValue) *
               device.DefaultMinValue;
     }

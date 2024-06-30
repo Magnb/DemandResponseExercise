@@ -18,7 +18,7 @@
 @code {
 
     //private string Message { get; set; }
-    private Dictionary<string, string> CurrentValuePerDevice { get; set; } = new Dictionary<string, string>();
+    private Dictionary<string, decimal> CurrentValuePerDevice { get; set; } = new Dictionary<string, decimal>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -29,7 +29,7 @@
                 try
                 {
                     //Message = value;
-                    CurrentValuePerDevice.Add(key, value);
+                    CurrentValuePerDevice.Add(key, Math.Round(Decimal.Parse(value), 3));
                     StateHasChanged();
                 }
                 catch (Exception ex)
