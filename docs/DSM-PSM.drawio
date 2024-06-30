@@ -1,0 +1,144 @@
+<mxfile host="app.diagrams.net" modified="2024-06-24T21:17:13.815Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2.1 Safari/605.1.15" etag="arN1UxKtUdgtg6Ujga-F" version="24.4.4" type="github">
+  <diagram name="Page-1" id="fkbhXybjwFrBpxLjs0Ko">
+    <mxGraphModel dx="1853" dy="692" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-40" value="sample data" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry y="450" width="840" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-2" value="CEMS-Logic" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="360" y="160" width="280" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-6" value="IoT-Devices (Wallbox, Heatpump) - simuliert" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="40" y="160" width="240" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.167;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="lP1A0Zk2vjstqx2M8Smo-3" target="lP1A0Zk2vjstqx2M8Smo-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="290" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-24" value="produce" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="lP1A0Zk2vjstqx2M8Smo-21">
+          <mxGeometry x="0.1375" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-3" value="RealTimeDataGenerator" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="230" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-7" value="ScheduleManagementApi" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="405" y="240" width="185" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="lP1A0Zk2vjstqx2M8Smo-9" target="lP1A0Zk2vjstqx2M8Smo-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="390" y="95" />
+              <mxPoint x="390" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-23" value="consume" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="lP1A0Zk2vjstqx2M8Smo-22">
+          <mxGeometry x="-0.4" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-8" value="Kafka-Cluster" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="260" y="50" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="lP1A0Zk2vjstqx2M8Smo-9" target="lP1A0Zk2vjstqx2M8Smo-32">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-52" value="consume" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="lP1A0Zk2vjstqx2M8Smo-51">
+          <mxGeometry x="-0.1119" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-9" value="realtimedata" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="275" y="80" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-12" value="" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.worker;fillColor=#D9A741;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="255" y="240" width="20" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-16" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Grafana.svg;" vertex="1" parent="1">
+          <mxGeometry x="401" y="232" width="25.76" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-17" value="" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.elasticsearch_service;fillColor=#F58534;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="405.32" y="261" width="15.68" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-18" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Grafana.svg;" vertex="1" parent="1">
+          <mxGeometry x="50" y="225.5" width="25.76" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-19" value="" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.elasticsearch_service;fillColor=#F58534;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="54.31999999999999" y="254.5" width="15.68" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="lP1A0Zk2vjstqx2M8Smo-27" target="lP1A0Zk2vjstqx2M8Smo-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint y="82" />
+              <mxPoint y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-27" value="Device Configurations" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#C925D1;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.documentdb_with_mongodb_compatibility;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="44" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-32" value="MonitoringApp" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="405" y="300" width="185" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="lP1A0Zk2vjstqx2M8Smo-7" target="lP1A0Zk2vjstqx2M8Smo-27">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="30" />
+              <mxPoint x="62" y="30" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-35" value="adapt schedule (add new interval)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="lP1A0Zk2vjstqx2M8Smo-34">
+          <mxGeometry x="0.3842" y="-1" relative="1" as="geometry">
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-38" value="{&lt;div&gt;&amp;nbsp; deviceId: &quot;wb192383&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; deviceCategory: &quot;Wallbox&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; deviceName: &quot;Peter&#39;s Wallbox daheim&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; sendDataIntervalInMs: 5000,&lt;/div&gt;&lt;div&gt;&amp;nbsp; defaultConsumptionLimit: 1500,&lt;/div&gt;&lt;div&gt;&amp;nbsp; schedules: [&lt;/div&gt;&lt;div&gt;&amp;nbsp; {&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; intervalStart: &quot;2024-06-06T12:50:33Z&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; intervalEnd: &quot;2024-06-06T14:50:33Z&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; limit: 200&lt;/div&gt;&lt;div&gt;&amp;nbsp; },&lt;/div&gt;&lt;div&gt;&lt;div&gt;&amp;nbsp; {&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; intervalStart: &quot;2024-06-12T10:44:22Z&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; intervalEnd: &quot;2024-06-12T11:44:22Z&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; limit: 0&lt;/div&gt;&lt;div&gt;&amp;nbsp; }&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;}&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="570" width="310" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-39" value="Device Configurations (consumer appliances)" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#C925D1;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.documentdb_with_mongodb_compatibility;" vertex="1" parent="1">
+          <mxGeometry x="110" y="490" width="44" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-43" value="" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.elasticsearch_service;fillColor=#F58534;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="579.9999999999999" y="310" width="15.68" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="lP1A0Zk2vjstqx2M8Smo-44" target="lP1A0Zk2vjstqx2M8Smo-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-44" value="Smart Meter Daten" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="290" y="370" width="60" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=1;entryDx=0;entryDy=-15;entryPerimeter=0;" edge="1" parent="1" source="lP1A0Zk2vjstqx2M8Smo-3" target="lP1A0Zk2vjstqx2M8Smo-44">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-48" value="GridOperationCode (DSO) oder ConsumerConfiguration von Kunden (Device sendet Nachricht)&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="660" y="256" width="245" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-50" value="orientiert am OpenADR-Standard...&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;inkludiert:&amp;nbsp;&lt;/div&gt;&lt;div&gt;zeitintervall bzw. Dauer der Leistungsänderung&lt;/div&gt;&lt;div&gt;origin: device/grid&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;bei grid/dso-request: Anreiz/money&lt;/div&gt;&lt;div&gt;bei device-request: hat Vorrang - bei Fehler weil bereits ein Intervall besteht kann dieses überschrieben werden durch weiteren Request an anderen Endpoint (Force-Push-Command -&amp;gt; device kann diesen verwenden über API, grid aber nicht....&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="470" y="570" width="310" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-53" value="" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=api" vertex="1" parent="1">
+          <mxGeometry x="572.8399999999999" y="244.2" width="30" height="28.8" as="geometry" />
+        </mxCell>
+        <mxCell id="lP1A0Zk2vjstqx2M8Smo-54" value="API-Requests" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="460" y="534" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
