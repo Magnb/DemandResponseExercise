@@ -9,6 +9,12 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddHostedService<Worker>();
         var serviceConfig = context.Configuration.Get<WorkerConfig>();
         services.AddSingleton<WorkerConfig>(serviceConfig);
+        services.AddSingleton<IConsumerDevicesFacade, ConsumerDevicesFacade>();
+        services.AddHttpClient("apiClient", client =>
+        {
+            client.BaseAddress = new Uri(serviceConfig.ScheduleManagementApiUri);
+            // You can set other HttpClient options here, such as timeout, headers, etc.
+        });
     })
     .UseSerilog((hostingContext, loggerConfig) => loggerConfig.ReadFrom.Configuration(hostingContext.Configuration))
     .UseConsoleLifetime()

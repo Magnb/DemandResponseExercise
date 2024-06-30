@@ -26,4 +26,8 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Scheduling\Scheduling.csproj" />
+    </ItemGroup>
+
 </Project>

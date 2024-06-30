@@ -1,43 +1,43 @@
 using Confluent.Kafka;
 using RealTimeDataGenerator.models;
+using ScheduleManagementApi.models;
 
 namespace RealTimeDataGenerator;
 
-public class Worker(ILogger<Worker> logger, WorkerConfig configuration) : BackgroundService
+public class Worker(ILogger<Worker> logger, WorkerConfig configuration, IHttpClientFactory httpClientFactory, IConsumerDevicesFacade consumerDevicesFacade) : BackgroundService
 {
+
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var i = 0;
         while (!stoppingToken.IsCancellationRequested)
         {
-            logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            await PublishToKafkaAsync(await SimulateCurrentValueAsync(i), "meter1", stoppingToken);        
+            logger.LogDebug("Worker running at: {time}", DateTimeOffset.Now);
+            var devices = await consumerDevicesFacade.GetAllConsumerConfigs();
+            logger.LogInformation("Generating data for {DevicesCount} devices", devices.Count());
+            
+            foreach (var deviceConfig in devices)
+            {
+                await PublishToKafkaAsync(SimulateCurrentValueAsync(deviceConfig), deviceConfig.DeviceName ?? deviceConfig.DeviceCategory, stoppingToken);       
+            } 
             await Task.Delay(configuration.DataIntervalInMs, stoppingToken);
-            i++;
         }
     }
-
-    private async Task<int> SimulateCurrentValueAsync(int iteration)
+    
+    private decimal SimulateCurrentValueAsync(ConsumerConfiguration device)
     {
-        // TODO get min und max from current schedule from database
-        await Task.CompletedTask;
-        if (iteration < configuration.ChangeIntervalAfterIterations)
+        var curTime = DateTime.UtcNow;
+        var curInterval = device.Schedule.Find(entry => entry.StartTime < curTime && entry.EndTime <= curTime);
+        if (curInterval != null)
         {
-            return Random.Shared.Next(configuration.MinValue, configuration.MaxValue);
+            logger.LogInformation("Schedule interval {Min} - {Max}", curInterval.MinValue, curInterval.MaxValue);
+            return Convert.ToDecimal(Random.Shared.NextDouble()) * (curInterval.MaxValue - curInterval.MinValue) +
+                   curInterval.MinValue;
         }
-
-        if (iteration < configuration.ChangeIntervalAfterIterations * 2)
-        {
-            return 0;
-        }
-
-        if (iteration < configuration.ChangeIntervalAfterIterations * 3)
-        {
-            return Random.Shared.Next(configuration.MinValue * 3, configuration.MaxValue * 3);
-        }
-        return Random.Shared.Next(configuration.MinValue, configuration.MaxValue);
+        logger.LogInformation("ok default it is");
+        return Convert.ToDecimal(Random.Shared.NextDouble()) * (device.DefaultMaxValue - device.DefaultMinValue) *
+              device.DefaultMinValue;
     }
-
+    
     private async Task PublishToKafkaAsync(decimal value, string device, CancellationToken stoppingToken)
     {
         var producer = new ProducerBuilder<string, string>(configuration.Kafka.ProducerConfig).Build();

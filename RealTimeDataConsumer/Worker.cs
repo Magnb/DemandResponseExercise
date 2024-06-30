@@ -42,7 +42,7 @@ public class Worker(ILogger<Worker> logger, WorkerConfig configuration) : Backgr
                 var point = PointData
                     .Measurement("power_consumption")
                     .Tag("consumer", cr.Message.Key)
-                    .Field("watt", long.Parse(cr.Message.Value))
+                    .Field("watt", decimal.Parse(cr.Message.Value))
                     .Timestamp(DateTime.UtcNow, WritePrecision.Ns);
 
                 using var writeApi = client.GetWriteApi();

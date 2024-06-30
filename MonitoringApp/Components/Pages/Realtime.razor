@@ -6,18 +6,19 @@
 @inject HubConnection _hubConnection
 
 <h3>Realtime Data</h3>
-@if (!string.IsNullOrEmpty(Message))
+@foreach (var realTimeData in CurrentValuePerDevice)
 {
-    <p>Current value: @Message</p>
+    <p>@realTimeData.Key : @realTimeData.Value</p>
 }
-else
+@if (!CurrentValuePerDevice.Any())
 {
     <p>No real time data available :(</p>
 }
 
 @code {
-    private string Message { get; set; }
-    private List<(string Meter, string Value)> MeterHistory { get; set; } = new List<(string, string)>();
+
+    //private string Message { get; set; }
+    private Dictionary<string, string> CurrentValuePerDevice { get; set; } = new Dictionary<string, string>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -27,8 +28,8 @@ else
             {
                 try
                 {
-                    Message = value;
-                    MeterHistory.Add((key, value));
+                    //Message = value;
+                    CurrentValuePerDevice.Add(key, value);
                     StateHasChanged();
                 }
                 catch (Exception ex)

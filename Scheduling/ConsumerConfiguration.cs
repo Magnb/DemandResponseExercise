@@ -45,4 +45,5 @@ public class ConsumerConfiguration
         DefaultMinValue = defaultMin;
         DefaultMaxValue = defaultMax;
     }
+    public ConsumerConfiguration() {}
 }

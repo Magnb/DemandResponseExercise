@@ -6,9 +6,6 @@ public class WorkerConfig
     public IEnumerable<SimulationConfig> Simulations { get; set; }
     public int DataIntervalInMs { get; set; }
     
-    public int MinValue { get; set; }
-    
-    public int MaxValue { get; set; }
-    
     public int ChangeIntervalAfterIterations { get; set; }
+    public string ScheduleManagementApiUri { get; set; }
 }

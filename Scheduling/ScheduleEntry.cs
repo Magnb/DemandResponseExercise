@@ -19,4 +19,6 @@ public class ScheduleEntry
     public decimal MaxValue { get; set; }
 
     [BsonElement("priority")] public Priority Priority { get; set; } = Priority.Default;
+    
+    public ScheduleEntry() {}
 }
