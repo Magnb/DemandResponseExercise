@@ -9,34 +9,26 @@
 @if (!string.IsNullOrEmpty(Message))
 {
     <p>Current value: @Message</p>
-    
-    <p>History:</p>
-    <ul>
-        @foreach (var item in History)
-        {
-            <li>@item</li>
-        }
-    </ul>
 }
 else
 {
-<p>No real time data available :(</p>
+    <p>No real time data available :(</p>
 }
 
 @code {
     private string Message { get; set; }
-    private List<string> History { get; set; } = new List<string>();
+    private List<(string Meter, string Value)> MeterHistory { get; set; } = new List<(string, string)>();
 
     protected override async Task OnInitializedAsync()
     {
-        _hubConnection.On<string>("ReceiveMessage", (data) =>
+        _hubConnection.On<string, string>("ReceiveMessage", (key, value) =>
         {
             InvokeAsync(async () =>
             {
                 try
                 {
-                    Message = data;
-                    History.Add(data);
+                    Message = value;
+                    MeterHistory.Add((key, value));
                     StateHasChanged();
                 }
                 catch (Exception ex)
@@ -44,13 +36,11 @@ else
                     Console.WriteLine($"Error updating UI: {ex.Message}");
                 }
             });
-          
         });
 
         await _hubConnection.StartAsync();
     }
 
-    // Ensure we stop the connection when the component is disposed
     public async ValueTask DisposeAsync()
     {
         if (_hubConnection.State != HubConnectionState.Disconnected)
@@ -58,4 +48,5 @@ else
             await _hubConnection.StopAsync();
         }
     }
+
 }

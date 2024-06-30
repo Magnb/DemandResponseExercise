@@ -1,4 +1,7 @@
 using Confluent.Kafka;
+using InfluxDB.Client;
+using InfluxDB.Client.Api.Domain;
+using InfluxDB.Client.Writes;
 using Microsoft.AspNetCore.SignalR.Client;
 using RealTimeDataConsumer.models.configuration;
 
@@ -22,7 +25,7 @@ public class Worker(ILogger<Worker> logger, WorkerConfig configuration) : Backgr
             AutoOffsetReset = AutoOffsetReset.Earliest
         };
 
-        using var consumer = new ConsumerBuilder<Ignore, string>(config).Build();
+        using var consumer = new ConsumerBuilder<string, string>(config).Build();
         consumer.Subscribe(configuration.Kafka.Topic);
 
         try
@@ -30,10 +33,20 @@ public class Worker(ILogger<Worker> logger, WorkerConfig configuration) : Backgr
             while (!stoppingToken.IsCancellationRequested)
             {
                 var cr = consumer.Consume(stoppingToken);
-                logger.LogInformation("Consumed message '{Message}' at: '{TopicPartitionOffset}'.", cr.Message.Value,
+                logger.LogInformation("Consumed message '{Message}' from '{Key}' at: '{TopicPartitionOffset}'.", cr.Message.Value, cr.Message.Key,
                     cr.TopicPartitionOffset);
 
-                await _hubConnection.SendAsync("SendMessage", cr.Message.Value, cancellationToken: stoppingToken);
+                await _hubConnection.SendAsync("SendMessage", cr.Message.Key, cr.Message.Value, cancellationToken: stoppingToken);
+               
+                using var client = new InfluxDBClient("http://localhost:8086", configuration.InfluxDB.Token);
+                var point = PointData
+                    .Measurement("power_consumption")
+                    .Tag("consumer", cr.Message.Key)
+                    .Field("watt", long.Parse(cr.Message.Value))
+                    .Timestamp(DateTime.UtcNow, WritePrecision.Ns);
+
+                using var writeApi = client.GetWriteApi();
+                writeApi.WritePoint(point, configuration.InfluxDB.Bucket, configuration.InfluxDB.Org);
             }
         }
         catch (OperationCanceledException)
