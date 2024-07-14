@@ -13,7 +13,7 @@ var apiConfig = builder.Configuration.Get<ApiConfiguration>();
 builder.Services.AddSingleton<ApiConfiguration>(apiConfig);
 builder.Services.Configure<MongoDBSettings>(
     builder.Configuration.GetSection("MongoDB"));
-builder.Services.AddSingleton<ConsumerConfigurationService>();
+builder.Services.AddSingleton<ConsumerConfigurationRepository>();
 
 var app = builder.Build();
 

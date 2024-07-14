@@ -5,11 +5,11 @@ using ScheduleManagementApi.models;
 
 namespace ScheduleManagementApi;
 
-public class ConsumerConfigurationService
+public class ConsumerConfigurationRepository
 {
     private readonly IMongoCollection<ConsumerConfiguration> _consumersCollection;
 
-    public ConsumerConfigurationService(
+    public ConsumerConfigurationRepository(
         IOptions<MongoDBSettings> consumerStoreDatabaseSettings)
     {
         var mongoClient = new MongoClient(

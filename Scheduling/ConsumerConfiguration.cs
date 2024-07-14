@@ -13,13 +13,13 @@ public class ConsumerConfiguration
     public string? DeviceName { get; set; }
 
     [BsonElement("deviceCategory")]
-    public string DeviceCategory { get; protected set; }
+    public string DeviceCategory { get; set; }
 
     [BsonElement("sensorCategory")]
-    public string SensorCategory { get; protected set; }
+    public string SensorCategory { get; set; }
 
     [BsonElement("sensorUnit")]
-    public string SensorUnit { get; protected set; }
+    public string SensorUnit { get; set; }
 
     [BsonElement("defaultMinValue")]
     public decimal DefaultMinValue { get; set; }
@@ -28,7 +28,7 @@ public class ConsumerConfiguration
     public decimal DefaultMaxValue { get; set; }
 
     [BsonElement("defaultMode")]
-    public Mode DefaultMode { get; protected set; }
+    public Mode DefaultMode { get; set; }
     
     [BsonElement("schedule")]
     public List<ScheduleEntry> Schedule { get; set; } = [];

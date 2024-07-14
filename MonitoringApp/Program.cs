@@ -1,17 +1,27 @@
+using InfluxDB.Client;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SignalR.Client;
 using MonitoringApp.Components;
+using MonitoringApp.models;
 using MonitoringApp.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var appConfig = builder.Configuration.Get<AppConfiguration>();
+builder.Services.AddSingleton<AppConfiguration>(appConfig);
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddSignalR()
     .AddHubOptions<RealTimeHub>(options =>
 {
-    options.EnableDetailedErrors = true; // Enable detailed errors for debugging
+    options.EnableDetailedErrors = true;
+});
+
+builder.Services.AddScoped<HttpClient>(sp => new HttpClient
+{
+    BaseAddress = new Uri(appConfig.ScheduleManagementApiUri)
 });
 
 builder.Services.AddScoped<HubConnection>((serviceProvider) =>
@@ -23,6 +33,8 @@ builder.Services.AddScoped<HubConnection>((serviceProvider) =>
 
     return hubConnection;
 });
+
+builder.Services.AddSingleton(sp => new InfluxDBClient(appConfig.InfluxDB.Uri, appConfig.InfluxDB.Token));
 
 var app = builder.Build();
 

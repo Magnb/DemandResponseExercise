@@ -1,0 +1,135 @@
+@page "/device-details/{id}"
+@inject InfluxDB.Client.InfluxDBClient InfluxDBClient
+@using Blazor.Extensions
+@using Blazor.Extensions.Canvas
+@using Blazor.Extensions.Canvas.Canvas2D
+@implements IAsyncDisposable
+@using InfluxDB.Client
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    
+    private BECanvasComponent _canvas;
+    private Canvas2DContext _context;
+    private readonly List<decimal> _dataPoints = new();
+    private const double CanvasWidth = 800;
+    private const double CanvasHeight = 400;
+    private InfluxDBClient _influxDBClient;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (_canvas == null)
+            {
+                Console.WriteLine("Canvas reference is null.");
+                return;
+            }
+
+            _context = await _canvas.CreateCanvas2DAsync();
+            if (_context == null)
+            {
+                Console.WriteLine("Failed to create canvas rendering context.");
+                return;
+            }
+
+            await FetchDataFromInfluxDB();
+            await DrawChart();
+        }
+    }
+
+    private async Task FetchDataFromInfluxDB()
+    {
+        var flux = "from(bucket:\"consumption\") |> range(start: 0)";
+        _dataPoints.Add(3);
+
+        try
+        {
+            var fluxTables = await _influxDBClient.GetQueryApi().QueryAsync(flux, "ENI-SoftwareSystems");
+
+            foreach (var record in fluxTables.SelectMany(table => table.Records))
+            {
+                _dataPoints.Add(Convert.ToDecimal(record.GetValue()));
+            }
+
+            Console.WriteLine($"Fetched {_dataPoints.Count} data points from InfluxDB.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching data from InfluxDB: {ex.Message}");
+        }
+    }
+
+    private async Task DrawChart()
+    {
+        if (_dataPoints.Count == 0)
+        {
+            Console.WriteLine("No data points to draw.");
+            return;
+        }
+
+        var maxDataPoint = _dataPoints.Max();
+        var minDataPoint = _dataPoints.Min();
+        var scale = CanvasHeight / ((double)maxDataPoint - (double)minDataPoint);
+
+        // Clear the canvas
+        await _context.ClearRectAsync(0, 0, CanvasWidth, CanvasHeight);
+
+        // Draw the data points
+        await _context.BeginPathAsync();
+        await _context.SetStrokeStyleAsync("rgba(75, 192, 192, 1)");
+        await _context.SetLineWidthAsync(2);
+
+        for (var i = 0; i < _dataPoints.Count; i++)
+        {
+            var x = (i / (double)(_dataPoints.Count - 1)) * CanvasWidth;
+            var y = CanvasHeight - ((double)(_dataPoints[i] - minDataPoint) * scale);
+            if (i == 0)
+            {
+                await _context.MoveToAsync(x, y);
+            }
+            else
+            {
+                await _context.LineToAsync(x, y);
+            }
+        }
+        await _context.StrokeAsync();
+
+        // Draw the axes
+        await _context.SetStrokeStyleAsync("black");
+        await _context.SetLineWidthAsync(1);
+
+        // Y-axis
+        await _context.BeginPathAsync();
+        await _context.MoveToAsync(0, 0);
+        await _context.LineToAsync(0, CanvasHeight);
+        await _context.StrokeAsync();
+
+        // X-axis
+        await _context.BeginPathAsync();
+        await _context.MoveToAsync(0, CanvasHeight);
+        await _context.LineToAsync(CanvasWidth, CanvasHeight);
+        await _context.StrokeAsync();
+
+        Console.WriteLine("Chart drawn successfully.");
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_context != null)
+        {
+            _context.Dispose();
+        }
+    }
+    
+}
+<div id="_divElement">
+    <h2>Details for @Id</h2>
+    <ul>
+        @foreach (var data in _dataPoints)
+        {
+            <li>@data</li>
+        }
+    </ul>
+    <BECanvasComponent @ref="_canvas" Width="800" Height="400"></BECanvasComponent>
+</div>

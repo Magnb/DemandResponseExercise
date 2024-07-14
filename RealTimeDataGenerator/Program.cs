@@ -10,6 +10,7 @@ var host = Host.CreateDefaultBuilder(args)
         var serviceConfig = context.Configuration.Get<WorkerConfig>();
         services.AddSingleton<WorkerConfig>(serviceConfig);
         services.AddSingleton<IConsumerDevicesFacade, ConsumerDevicesFacade>();
+        services.AddSingleton<IRealTimeDataRepository, SimulatedRealTimeDataRepository>();
         services.AddHttpClient("apiClient", client =>
         {
             client.BaseAddress = new Uri(serviceConfig.ScheduleManagementApiUri);

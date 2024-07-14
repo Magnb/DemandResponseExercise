@@ -14,7 +14,13 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Blazor.Extensions.Canvas" Version="1.1.1" />
+      <PackageReference Include="InfluxDB.Client" Version="4.16.0" />
       <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.6" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Scheduling\Scheduling.csproj" />
     </ItemGroup>
 
 </Project>

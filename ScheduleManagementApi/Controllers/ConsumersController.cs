@@ -4,19 +4,19 @@ using ScheduleManagementApi.models.DTO;
 
 namespace ScheduleManagementApi.controllers;
 
-
 [ApiController]
 [Route("api/[controller]")]
-public class ConsumersController(ConsumerConfigurationService consumersService) : ControllerBase
+public class ConsumersController(ConsumerConfigurationRepository consumersRepository, ILogger<ConsumersController> logger) : ControllerBase
 {
     [HttpGet]
     public async Task<List<ConsumerConfiguration>> Get() =>
-        await consumersService.GetAsync();
+        await consumersRepository.GetAsync();
 
     [HttpGet("{id:length(24)}")]
     public async Task<ActionResult<ConsumerConfiguration>> Get(string id)
     {
-        var consumer = await consumersService.GetAsync(id);
+        logger.LogInformation("Get request for {Id}", id);
+        var consumer = await consumersRepository.GetAsync(id);
 
         if (consumer is null)
         {
@@ -37,15 +37,15 @@ public class ConsumersController(ConsumerConfigurationService consumersService) 
             // Set default values or leave other properties as defaults/null
         };
 
-        await consumersService.CreateWallboxAsync(wallboxConfig);
+        await consumersRepository.CreateWallboxAsync(wallboxConfig);
 
         return CreatedAtAction(nameof(Get), new { id = wallboxConfig.Id }, wallboxConfig);
     }
-    
+
     [HttpPost("{id}/schedule")]
     public async Task<IActionResult> AddSchedule(string id, [FromBody] ScheduleDto scheduleDto)
     {
-        var existingWallboxConfig = await consumersService.GetAsync(id);
+        var existingWallboxConfig = await consumersRepository.GetAsync(id);
 
         if (existingWallboxConfig == null)
         {
@@ -64,15 +64,15 @@ public class ConsumersController(ConsumerConfigurationService consumersService) 
 
         existingWallboxConfig.Schedule.Add(newScheduleEntry);
 
-        await consumersService.UpdateAsync(id, existingWallboxConfig);
+        await consumersRepository.UpdateAsync(id, existingWallboxConfig);
 
         return Ok(existingWallboxConfig);
     }
-    
+
     [HttpPost("heatpump")]
     public async Task<IActionResult> Post(HeatpumpConfiguration heatpumpConfiguration)
     {
-        await consumersService.CreateHeatpumpAsync(heatpumpConfiguration);
+        await consumersRepository.CreateHeatpumpAsync(heatpumpConfiguration);
 
         return CreatedAtAction(nameof(Get), new { id = heatpumpConfiguration.Id }, heatpumpConfiguration);
     }
@@ -80,7 +80,7 @@ public class ConsumersController(ConsumerConfigurationService consumersService) 
     [HttpPut("{id:length(24)}")]
     public async Task<IActionResult> Update(string id, ConsumerConfiguration updatedConsumer)
     {
-        var consumer = await consumersService.GetAsync(id);
+        var consumer = await consumersRepository.GetAsync(id);
 
         if (consumer is null)
         {
@@ -89,7 +89,7 @@ public class ConsumersController(ConsumerConfigurationService consumersService) 
 
         updatedConsumer.Id = consumer.Id;
 
-        await consumersService.UpdateAsync(id, updatedConsumer);
+        await consumersRepository.UpdateAsync(id, updatedConsumer);
 
         return NoContent();
     }
@@ -97,14 +97,14 @@ public class ConsumersController(ConsumerConfigurationService consumersService) 
     [HttpDelete("{id:length(24)}")]
     public async Task<IActionResult> Delete(string id)
     {
-        var consumer = await consumersService.GetAsync(id);
+        var consumer = await consumersRepository.GetAsync(id);
 
         if (consumer is null)
         {
             return NotFound();
         }
 
-        await consumersService.RemoveAsync(id);
+        await consumersRepository.RemoveAsync(id);
 
         return NoContent();
     }

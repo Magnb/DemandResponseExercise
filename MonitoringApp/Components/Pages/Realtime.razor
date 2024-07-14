@@ -1,35 +1,72 @@
 @page "/realtime"
 @using Microsoft.AspNetCore.SignalR.Client
+@using MonitoringApp.models
+@using ScheduleManagementApi.models
 @implements IAsyncDisposable
 @rendermode RenderMode.InteractiveServer
 @inject NavigationManager Navigation
 @inject HubConnection _hubConnection
+@inject HttpClient Http
 
-<h3>Realtime Data</h3>
-@foreach (var realTimeData in CurrentValuePerDevice)
-{
-    <p>@realTimeData.Key : @realTimeData.Value</p>
-}
+<h3>Realtime Data of managed devices</h3>
+
 @if (!CurrentValuePerDevice.Any())
 {
     <p>No real time data available :(</p>
 }
 
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Unit</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var realTimeData in CurrentValuePerDevice)
+    {
+    <tr>
+        <NavLink class="nav-link" href="javascript:void(0);" @onclick="() => NavigateToDeviceDetails(realTimeData.Value.Id)">
+            @realTimeData.Value.DeviceName
+        </NavLink>
+        <td>@realTimeData.Value.DeviceCategory</td>
+        <td>@realTimeData.Value.SensorUnit</td>
+        <td>@realTimeData.Value.CurrentValue</td>
+    </tr>
+    }
+    </tbody>
+</table>
+
 @code {
 
-    //private string Message { get; set; }
-    private Dictionary<string, decimal> CurrentValuePerDevice { get; set; } = new Dictionary<string, decimal>();
-
+    private Dictionary<string, TableEntry> CurrentValuePerDevice { get; set; } = new();
+    private  HttpClient _httpClient;
+    
     protected override async Task OnInitializedAsync()
     {
+        // Initialize HttpClient
+        _httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:5262") };
+
         _hubConnection.On<string, string>("ReceiveMessage", (key, value) =>
         {
             InvokeAsync(async () =>
             {
                 try
                 {
-                    //Message = value;
-                    CurrentValuePerDevice.Add(key, Math.Round(Decimal.Parse(value), 3));
+                    //http://localhost:5262/api/Consumers/66817712c63e5a3f41197310
+                    // Fetch data from MongoDB via API
+                    var consumerConfiguration = await _httpClient.GetFromJsonAsync<ConsumerConfiguration>($"api/Consumers/{key}") ?? new ConsumerConfiguration();
+                    
+                    if (CurrentValuePerDevice.ContainsKey(key))
+                    {
+                        CurrentValuePerDevice[key] = new TableEntry(consumerConfiguration, Math.Round(decimal.Parse(value), 3));
+                    }
+                    else
+                    {
+                        CurrentValuePerDevice.Add(key, new TableEntry(consumerConfiguration, Math.Round(decimal.Parse(value), 3)));
+                    }
                     StateHasChanged();
                 }
                 catch (Exception ex)
@@ -41,12 +78,18 @@
 
         await _hubConnection.StartAsync();
     }
+    
+    async Task NavigateToDeviceDetails(string deviceId)
+    {
+        Navigation.NavigateTo($"device-details/{deviceId}");
+    }
 
     public async ValueTask DisposeAsync()
     {
         if (_hubConnection.State != HubConnectionState.Disconnected)
         {
             await _hubConnection.StopAsync();
+            await _hubConnection.DisposeAsync();
         }
     }
 

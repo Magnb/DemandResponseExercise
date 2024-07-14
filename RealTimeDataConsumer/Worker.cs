@@ -47,10 +47,12 @@ public class Worker(ILogger<Worker> logger, WorkerConfig configuration) : Backgr
 
                 using var writeApi = client.GetWriteApi();
                 writeApi.WritePoint(point, configuration.InfluxDB.Bucket, configuration.InfluxDB.Org);
+                logger.LogInformation("Published to InfluxDb!");
             }
         }
         catch (OperationCanceledException)
         {
+            logger.LogError("Error of operationcanceled.");
             consumer.Close();
         }
         catch (Exception ex)
