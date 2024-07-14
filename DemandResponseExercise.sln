@@ -3,9 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTimeDataGenerator", "RealTimeDataGenerator\RealTimeDataGenerator.csproj", "{812FBB0C-922C-4C2E-98FB-7015C40D5BAE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B1DD438E-6493-40AA-920E-F87B809A348B}"
-	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleManagementApi", "ScheduleManagementApi\ScheduleManagementApi.csproj", "{2E69B609-DCDC-4D54-BD55-FA13E0E73335}"
 EndProject
@@ -14,6 +11,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTimeDataConsumer", "RealTimeDataConsumer\RealTimeDataConsumer.csproj", "{491E18F7-DA3E-4BC5-B13A-1F6E90FB1A40}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduling", "Scheduling\Scheduling.csproj", "{442F1003-2682-46EE-A1E0-58C1390BFBA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RunAll", "RunAll", "{0997C07E-CAA0-46DC-A83D-AD6C21D2A97F}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		run-all-microservices.sh = run-all-microservices.sh
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
