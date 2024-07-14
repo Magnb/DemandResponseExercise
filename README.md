@@ -1,6 +1,6 @@
 # DemandResponseExercise
 
-This is a microservice-solution for the Demand Reponse Exercise of Software Systems (ENI) - PSM (this is a prototype solution with simulated data).
+This is a microservice-solution for the Demand Reponse Exercise of Software Systems (ENI) - PSM (this is a prototype solution with simulated data as homework exercise).
 
 ## Prerequisites
 
