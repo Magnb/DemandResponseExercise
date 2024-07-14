@@ -1,6 +1,6 @@
 # DemandResponseExercise
 
-This is a microservice-solution for the Demand Reponse Exercise.
+This is a microservice-solution for the Demand Reponse Exercise (PSM) of Software Systems (ENI).
 
 ## Prerequisites
 
@@ -20,10 +20,8 @@ PowerShell (for Windows): The script uses PowerShell commands to start the .NET 
 
 Bash (for Unix-like systems): The script uses Bash commands to start the .NET projects on Unix-like systems (macOS/Linux). 
 
-
 ## Running the solution
-To start the InfluxDB, MongoDB and Kafka, start up the docker-containers via the docker-compose file
-Navigate to the directory containing the docker-compose.yml file and start up the containers:
+To start InfluxDB, MongoDB and Kafka, start up the docker-containers via the docker-compose file. Navigate to the directory containing the docker-compose.yml file and start up the containers:
 >docker-compose up --build
 
 To execute the microservices navigate to the run-all-microservices.sh script and execute it:
