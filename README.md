@@ -20,14 +20,17 @@ PowerShell (for Windows): The script uses PowerShell commands to start the .NET 
 
 Bash (for Unix-like systems): The script uses Bash commands to start the .NET projects on Unix-like systems (macOS/Linux). 
 
-Running the Script
 
 ## Running the solution
 To start the InfluxDB, MongoDB and Kafka, start up the docker-containers via the docker-compose file
 Navigate to the directory containing the docker-compose.yml file and start up the containers:
 >docker-compose up --build
 
-To execute the microservices navigate to the run-all-microservices.sh script and execute it. Congratulations, the solution shall now be started.
+To execute the microservices navigate to the run-all-microservices.sh script and execute it:
+
+>./run-all-microservices.sh
+
+Congratulations, the solution shall now be started.
 
 ## Usage
 If you started the services via console you should be able to see console logs now.
